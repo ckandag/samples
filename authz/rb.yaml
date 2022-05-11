@@ -1,0 +1,66 @@
+#   An  application  AppX  running on the Cluster in 
+#   Namespaces:  X1 and X2 .
+#   UsersGroups:  AppX-Dev-Grp, AppX-Operator-Grp
+#   Rolebindings:
+#       AppX-Dev-Grp has view access to the namespace X1 and X2
+#       AppX-Ops-Grp has admin access to the namespace X1 and X2
+
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: AppX-binding1
+  namespace: x1
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: AppX-Dev-Grp
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: AppX-binding2
+  namespace: x2
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: AppX-Dev-Grp
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: AppX-binding3
+  namespace: x1
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: AppX-Ops-Grp
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: AppX-binding4
+  namespace: x2
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: AppX-Ops-Grp
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
